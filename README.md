@@ -1,27 +1,12 @@
-# Apm
+# Introduction
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.3.
+Frontend POC App project using Angular framework
 
-## Development server
+## Detailed Description
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Implement a POC applicaiotn alllows to manage TODO list and detail task of TODO item
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- Main screen with ToDo list item allow to filter by Lable
+- TODO list with data table display all TODO item Title # Description # status # number of tasks 
+- In this screen users could delete , access TODO detail screen or click to a button to create a new TODO item
+- Detail TODO screen display detail info of TODO and its task with the data table below the main data
