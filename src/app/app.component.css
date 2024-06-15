@@ -1,0 +1,30 @@
+.nav-link {
+  font-size: large;
+}
+
+nav {
+  background-color: #3399ff; /* Dark gray background */
+  color: #fff; /* White text color */
+}
+
+nav ul {
+  list-style-type: none; /* Remove bullet points */
+  margin: 0;
+  padding: 0;
+  text-align: center; /* Center-align the list items */
+}
+
+nav ul li {
+  display: inline-block; /* Display list items horizontally */
+}
+
+nav ul li a {
+  display: block;
+  padding: 10px 20px; /* Padding around the links */
+  text-decoration: none; /* Remove underline */
+  color: #fff; /* White text color */
+}
+
+nav ul li a:hover {
+  background-color: #0077b3; /* Darken the background on hover */
+}

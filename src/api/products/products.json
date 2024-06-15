@@ -1,0 +1,44 @@
+[
+  {
+      "productId": 1,
+      "productName": "Product 1",
+      "productDescription": "Laboris nisi ut aliquip ex ea commodo",
+      "realeaseDate": "01/01/2018"
+  },
+  {
+      "productId": 2,
+      "productName": "Product 2",
+      "productDescription": "Quis nostrud exercitation ullamco",
+      "realeaseDate": "01/02/2019"
+  },
+  {
+      "productId": 3,
+      "productName": "Product 3",
+      "productDescription": "Ut enim ad minim veniam",
+      "realeaseDate": "01/03/2020"
+  },
+  {
+      "productId": 4,
+      "productName": "Product 4",
+      "productDescription": "Lorem ipsum dolor sit amet",
+      "realeaseDate": "01/04/2021"
+  },
+  {
+      "productId": 5,
+      "productName": "Product 5",
+      "productDescription": "Consectetur adipiscing elit",
+      "realeaseDate": "01/05/2022"
+  },
+  {
+      "productId": 6,
+      "productName": "Product 6",
+      "productDescription": "Sed do eiusmod tempor incididunt",
+      "realeaseDate": "01/06/2023"
+  },
+  {
+      "productId": 7,
+      "productName": "Product 7",
+      "productDescription": "Ut labore et dolore magna aliqua",
+      "realeaseDate": "01/07/2024"
+  }
+]

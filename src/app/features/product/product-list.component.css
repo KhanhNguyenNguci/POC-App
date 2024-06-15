@@ -1,0 +1,113 @@
+.table-container {
+    overflow-x: auto; /* Add horizontal scrollbar if content overflows */
+}
+.custom-table {
+    width: 100%; /* Make the table fill its container */
+    border-collapse: collapse; /* Collapse border spacing */
+    border: 1px solid #ddd; /* Add border to the table */
+}
+.custom-table th, .custom-table td {
+    padding: 10px; /* Add padding to cells */
+    border: 1px solid #ddd; /* Add border to cells */
+}
+.custom-table th {
+    background-color: #f2f2f2; /* Add background color to header cells */
+    font-weight: bold; /* Make header text bold */
+}
+.custom-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Alternate row background color */
+}
+.custom-table tbody tr:hover {
+    background-color: #f2f2f2; /* Hover effect for rows */
+}
+
+
+.btn {
+    padding: 5px 10px;
+    margin: 2px;
+    cursor: pointer;
+}
+/* product-list.component.css */
+.custom-button {
+    padding: 5px 10px; /* Smaller padding */
+    font-size: 12px; /* Smaller font size */
+    height: 20px; /* Adjust height if necessary */
+    line-height: 0.7; /* Adjust line height */
+}
+.delete-btn {
+    background-color: red;
+    color: white;
+    border: 1px solid #ccc;
+}
+.delete-btn:hover {
+    color: white;
+    background-color: #e60000;
+}
+.update-btn {
+    background-color: #3399ff;
+    color: white;
+    border: 1px solid #cccccc;
+}
+.update-btn:hover {
+    color: white;
+    background-color: #0073e6; /* Đổi màu viền khi input được focus */
+}
+
+.detail-btn {
+    background-color: #3399ff;
+    color: white;
+    border: 1px solid #ccc;
+}
+
+.detail-btn:hover {
+    color: white;
+    background-color: #0073e6; /* Đổi màu viền khi input được focus */
+}
+
+.create-new-product {
+    background-color: #3399ff;
+    color: white;
+    border: 1px solid #ccc;
+}
+
+.custom-input {
+    width: 100%; /* Đặt độ rộng */
+    padding: 10px; /* Thêm khoảng đệm bên trong */
+    border: 1px solid #ccc; /* Đặt viền */
+    border-radius: 5px; /* Bo tròn các góc */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Thêm hiệu ứng bóng */
+    font-size: 16px; /* Đặt kích thước chữ */
+    color: black; /* Đặt màu chữ */;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.custom-input:focus {
+    border-color: #007bff; /* Đổi màu viền khi input được focus */
+    outline: none; /* Bỏ viền mặc định khi focus */
+}
+
+
+.button-container {
+    display: flex;
+    justify-content: center; 
+    gap: 1rem; 
+}
+
+.cancel-button .p-button {
+    background-color: red !important;
+    border-color: red !important;
+    color: white !important;
+}
+
+.save-button .p-button {
+    background-color: green !important;
+    border-color: green !important;
+    color: white !important;
+}
+
+/* Hiệu ứng khi di chuột qua nút */
+.cancel-button .p-button:hover, 
+.save-button .p-button:hover {
+    opacity: 0.8;
+}

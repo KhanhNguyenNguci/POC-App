@@ -1,0 +1,87 @@
+<!-- use Twitter Bootstrap -->
+<div class = 'card container'>
+    <div class = 'card-header'>
+        {{pageTitle}}
+    </div>
+    
+    <div class = 'card-body'>
+        <div class = 'table-responsive table-container'>
+            <table class="table custom-table">
+                <thead class="my-thead"> <!--table head-->
+                    <tr> <!--table row-->
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody class="body-main"> <!--table body-->
+                    <tr *ngFor = 'let product of selectedProductDetail?.productstDetail, let i = index'>
+                        <td>{{product.productDetailId}}</td> <!--table data-->
+                        <td>{{product.productDetailName}}</td>
+                        <td>{{product.productDetailDescription}}</td>
+                        <td>{{product.DetailStartDate}}</td>
+                        <td>{{product.DetailEndDate}}</td>
+                        <td>
+                            <button class="btn update-btn" (click)="
+                                updateVisible[i] = true;
+                                updateItemName = product.productDetailName;
+                                updateItemDescription = product.productDetailDescription">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                Update
+                            </button>
+                            <!---->
+                            <p-dialog header="Update item: {{product.productDetailId}}"
+                                      [modal]="true"
+                                      [(visible)]="updateVisible[i]"
+                                      [style]="{ width: '40rem', maxHeight: '80vh', overflow: 'auto'}">
+                                <div class="flex align-items-center gap-3 mb-3">
+                                    <label for="name"
+                                           class="font-semibold w-6rem">Name:</label>
+                                    <input pInputText
+                                           id="name"
+                                           [(ngModel)]="updateItemName"
+                                           class="custom-input"
+                                           autocomplete="off" />
+                                </div>
+                                <div class="flex align-items-center gap-3 mb-5">
+                                    <label for="description"
+                                           class="font-semibold w-6rem">Description: </label>
+                                    <textarea pInputText
+                                           id="description"
+                                           [(ngModel)]="updateItemDescription"
+                                           class="custom-input"
+                                           autocomplete="off"></textarea>
+                                </div>
+
+                                <div class="flex justify-content-end gap-2 button-container">
+                                    <p-button class="cancel-button"
+                                              label="Cancel" (click)="updateVisible[i] = false; resetItemForm()">
+                                        <i class="fas fa-times"></i>
+                                    </p-button>
+                                    <p-button label="Update" (click)="saveUpdateItem(i)">
+                                              <i class="fa-solid fa-pen-to-square"></i>
+                                    </p-button>
+                                </div>
+                            </p-dialog>
+                            <!---->
+                            <button class="btn delete-btn" (click)="updateVisible[i] = false; deleteItemRow(i)">
+                                <i class="fa-solid fa-trash"></i>
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <button (click)="onBack()" class="back-button">
+            <i class="fa-solid fa-reply"></i>
+            Back
+        </button>
+    </div>
+</div>
