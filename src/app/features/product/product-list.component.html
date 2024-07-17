@@ -21,8 +21,13 @@
                     <input pInputText
                            id="name"
                            [(ngModel)]="newProductName"
+                           (input)="nameError = false"
                            class="custom-input"
-                           autocomplete="off" />
+                           autocomplete="off" />   
+                    <div *ngIf="!newProductName && nameError"
+                         class="text-red-500">
+                         Name field cannot be empty!
+                        </div>
                 </div>
                 <div class="flex align-items-center gap-3 mb-5">
                     <label for="description"
@@ -40,9 +45,8 @@
                         <i class="fas fa-times"></i>
                     </p-button>
                     <p-button label="Save"
-                              (click)="insertRow()">
+                              (click)="validateAndInsert()">
                         <i class="fa-solid fa-floppy-disk"></i>
-        
                     </p-button>
                 </div>
             </p-dialog>
@@ -52,74 +56,30 @@
                 <thead class="my-thead"> <!--table head-->
                     <tr> <!--table row-->
                         <th>ID</th>
-                        <th>Name</th>
+                        <!-- <th>Name</th> -->
+                        <th (click)="sortBy('productName')">Name <i class="fas fa-sort"></i></th>
                         <th>Date</th>
                         <th>Description</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody class="body-main"> <!--table body-->
-                    <tr *ngFor = 'let product of products; let i = index'>
+                    <tr *ngFor = 'let product of products'>
                         <td>{{product.productId}}</td> <!--table data-->
                         <td>
                             <a [routerLink]="['/product', product.productId]">{{product.productName}}</a>
                         </td>
-                        <td>{{product.realeaseDate}}</td>
+                        <td>{{product.date | dateFormat}}</td>
                         <td>{{product.productDescription}}</td>
                         <td>
                             <button class="btn update-btn"
-                                    (click)="updateRow(i)">
+                                    (click)="updateRow(product.productId)">
                                 <i class="fa-solid fa-pen-to-square"></i>
                                 Update
                             </button>
-                            <!---->
-                            <p-dialog header="Update product"
-                                      [modal]="true"
-                                      [(visible)]="updateVisible[i]"
-                                      [style]="{ width: '40rem', maxHeight: '80vh', overflow: 'auto'}">
-                                <div class="flex align-items-center gap-3 mb-3">
-                                    <label for="name"
-                                           class="font-semibold w-6rem">Name:</label>
-                                    <input pInputText
-                                           id="name"
-                                           [(ngModel)]="newProductName"
-                                           class="custom-input"
-                                           autocomplete="off" />
-                                </div>
-                                <div class="flex align-items-center gap-3 mb-5">
-                                    <label for="description"
-                                           class="font-semibold w-6rem">Description: </label>
-                                    <textarea pInputText
-                                           id="description"
-                                           [(ngModel)]="newProductDescription"
-                                           class="custom-input"
-                                           autocomplete="off"></textarea>
-                                </div>
-
-
-                                <div class="align-items-center gap-3 mb-5">
-                                    <button class="btn detail-btn"
-                                            (click)="showTableToggle()">
-                                        <i class="fa-regular fa-eye"></i>
-                                        <a [routerLink]="['/product', product.productId]" style="font-weight: bold; color: white;">Detail {{product.productId}}</a>
-                                    </button>
-                                </div>
-                                
-                                
-                                <div class="flex justify-content-end gap-2 button-container">
-                                    <p-button class="cancel-button"
-                                              label="Cancel"
-                                              (click)="updateVisible[i] = false; resetForm()">
-                                        <i class="fas fa-times"></i>
-                                    </p-button>
-                                    <p-button label="Update" (click)="saveUpdate(i)">
-                                              <i class="fa-solid fa-pen-to-square"></i>
-                                    </p-button>
-                                </div>
-                            </p-dialog>
-                            <!---->
+                            
                             <button class="btn delete-btn"
-                                    (click)="deleteRow(i)">
+                                    (click)="deleteRow(product.productId)">
                                 <i class="fa-solid fa-trash"></i>
                                 Delete
                             </button>

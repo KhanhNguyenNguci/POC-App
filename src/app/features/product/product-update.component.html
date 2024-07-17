@@ -1,0 +1,46 @@
+<p-dialog header="Update product"
+          [modal]="true"
+          [(visible)]="showTable"
+          [style]="{ width: '40rem', maxHeight: '80vh', overflow: 'auto'}">
+    <div class="flex align-items-center gap-3 mb-3">
+        <label for="name"
+               class="font-semibold w-6rem">Name:</label>
+        <input pInputText
+               id="name"
+               [(ngModel)]="product.productName"
+               class="custom-input"
+               autocomplete="off" />
+    </div>
+    <div class="flex align-items-center gap-3 mb-5">
+        <label for="description"
+               class="font-semibold w-6rem">Description: </label>
+        <textarea pInputText
+                  id="description"
+                  [(ngModel)]="product.productDescription"
+                  class="custom-input"
+                  autocomplete="off"></textarea>
+    </div>
+
+
+    <div class="align-items-center gap-3 mb-5">
+        <button class="btn detail-btn"
+                (click)="showTableToggle()">
+            <i class="fa-regular fa-eye"></i>
+            <a [routerLink]="['/product', product.productId]"
+               style="font-weight: bold; color: white;">Detail {{product.productId}}</a>
+        </button>
+    </div>
+
+
+    <div class="flex justify-content-end gap-2 button-container">
+        <p-button class="cancel-button"
+                  label="Cancel"
+                  (click)="toBack()">
+            <i class="fas fa-times"></i>
+        </p-button>
+        <p-button label="Update"
+                  (click)="saveUpdate();">
+            <i class="fa-solid fa-pen-to-square"></i>
+        </p-button>
+    </div>
+</p-dialog>

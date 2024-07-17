@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import { IProduct } from "./product";
 import { ProductService } from "../service/product.service";
 import { Subscription } from "rxjs";
+import { ActivatedRoute, Router } from "@angular/router";
+import { ProductUpdateComponent } from "./product-update.component";
 // import { ProductDetailComponent } from "../product-detail/product-detail.component";
 // import { ProductDetailService } from "../service/product-detail.service";
 
@@ -13,7 +15,7 @@ import { Subscription } from "rxjs";
     providers: [ProductService],
 })
 
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit{
     date: Date = new Date();
     pageTitle = 'Product List';
     color: string = '#FFFFFF';
@@ -25,87 +27,95 @@ export class ProductListComponent implements OnInit {
     products: IProduct[] = [];
     updateVisible: boolean[] = new Array(this.products.length).fill(false);
     sub!: Subscription;
-    // sub2!: Subscription;
-    // @ViewChild(ProductDetailComponent)
-    // private productDetailComponent!: ProductDetailComponent;
-    ngOnInit():void{
-        this.sub = this.productService.getProducts().subscribe({
-            next: products => {
-                this.products = products;
-            },
+    //name field cannot be empty
+    nameError: boolean = false;
+
+    //Sort table
+    sortedProducts: any[] = []; // New array for sorted products
+    sortDirection: number = 1; // 1 for ascending, -1 for descending
+    sortKey: string = 'productName'; // Initial sort key
+
+    @ViewChild(ProductUpdateComponent) productUpdateComponent!: ProductUpdateComponent;
+    ngOnInit():void{ ///////IMPORTANT:
+        this.sub = this.productService.getProducts().subscribe(products =>{
+            //this.products = products;
+            this.products = products.map(product => ({
+                ...product,//full fields 
+                date: new Date(product.date) // Chuyển đổi chuỗi thành đối tượng Date
+            }));
         });
-        // this.sub2 = this.ProductDetailService.getProductsDetail().subscribe({
-        //     // complete: () => console.log('Observable emitted the complete notification'),
-        //     next: (product) => {
-        //         this.productDetailComponent.productsDetail = product;
-        //         //this.productsDetail = product;
-        //         console.log('ok');
-        //     },
-        // });
+        this.sortedProducts = [...this.products]; //...this.products (spread syntax)
+        /**
+         * Nếu bạn đang gặp phải vấn đề rằng các trường trong đối tượng sản phẩm (`IProduct`) bị chuyển đổi thành kiểu `string` sau khi nhận được từ dịch vụ, có thể do một trong các nguyên nhân sau:
+
+            1. **Server Response**: Kiểm tra xem dữ liệu trả về từ API có đúng kiểu không. Đôi khi, server có thể trả về dữ liệu dưới dạng chuỗi JSON và khi JavaScript phân tích cú pháp, các giá trị ngày tháng có thể được chuyển đổi thành chuỗi.
+
+            2. **TypeScript Interface**: Đảm bảo rằng bạn đang sử dụng kiểu `Date` đúng cách trong TypeScript. Nếu dữ liệu trả về từ server là chuỗi đại diện cho ngày tháng, bạn cần phải chuyển đổi chúng thành đối tượng `Date` sau khi nhận dữ liệu.
+
+            Dưới đây là cách bạn có thể làm điều đó:
+
+            ```typescript
+            this.sub = this.productService.getProducts().subscribe(products => {
+                this.products = products.map(product => ({
+                    ...product,
+                    date: new Date(product.date) // Chuyển đổi chuỗi thành đối tượng Date
+                }));
+            });
+            ```
+
+            Với đoạn mã này, bạn sẽ giữ lại kiểu dữ liệu nguyên thủy cho các trường khác trong đối tượng `IProduct`, trong khi trường `date` sẽ được chuyển đổi thành đối tượng `Date` khi cần thiết.
+         */
     }
     ngDestroy(): void {
         this.sub.unsubscribe();
-        // this.sub2.unsubscribe();
     }
-    constructor(private productService: ProductService) {}
+    constructor(private productService: ProductService, private router:Router) {}
 
-    updateRow(index: number) {
-        this.newProductName = this.products[index].productName;
-        this.newProductDescription = this.products[index].productDescription;
-        this.updateVisible[index] = true;
-    }
-    saveUpdate(index: number) {
-        this.products[index].productName = this.newProductName;
-        this.products[index].productDescription = this.newProductDescription;
-        //reset form
-        this.updateVisible[index] = false;
-        this.newProductName = '';
-        this.newProductDescription = '';
-    }
-    deleteRow(index: number) {
-        if (index > -1 && index < this.products.length) {
-            //find index of product detail list
-            //const idDeletedProduct = this.products[index].productId;
-            //delete child products
-            //this.productDetailComponent.deleteProductDetail(idDeletedProduct);
-            this.products.splice(index, 1);
-            //console.log(index);
-        }
-    }
-
-    formatDate(date: Date): string {
-        // Get day, month, and year from the date object
-        const day: number = date.getDate();
-        const month: number = date.getMonth() + 1; // Months are zero-based
-        const year: number = date.getFullYear();
-    
-        // Pad day and month with leading zeros if necessary
-        const formattedDay: string = day < 10 ? '0' + day : day.toString();
-        const formattedMonth: string = month < 10 ? '0' + month : month.toString();
-    
-        // Return the formatted date string
-        return formattedDay + '/' + formattedMonth + '/' + year;
+    updateRow(id: number) {
+        this.router.navigate(['product-update',id]);
+        this.toggleTable();
+        //console.log("0k");
     }
     
+    deleteRow(id: number) {
+        this.productService.deleteProductById(id).subscribe(data=>{
+            console.log(data);
+        })
+    }
 
     insertRow(): void{
         const cleanedDescription = this.stripHtmlTags(this.newProductDescription);
-        const newProductId: number = this.products[this.products.length - 1].productId;
+        const newProductId = this.products.reduce((max, product) => (product.productId > max ? product.productId : max), this.products[0].productId);
+
         const newProduct: IProduct = {
             productId: newProductId + 1,
             productName: this.newProductName,
             productDescription: cleanedDescription,
-            realeaseDate: this.formatDate(this.date),
+            date: this.date,
         };
-        if (newProduct.productName !== '' || newProduct.productDescription !== '') {
-            this.products.push(newProduct);
-        }
+        
+        this.productService.createProduct(newProduct).subscribe(data=>{
+            this.router.navigate(['/products']);
+            console.log(data);
+        });
         this.resetForm();
     }
+
+    validateAndInsert() {
+        if (!this.newProductName) {
+            this.nameError = true;
+            return;
+        }
+        this.insertRow();
+    }
+    
+
     resetForm(): void {
         this.newProductName = '';
         this.newProductDescription = '';
         this.visible = false;
+        this.nameError = false;
+        this.router.navigate(['/product']);
     }
 
     stripHtmlTags(input: string): string {
@@ -118,5 +128,26 @@ export class ProductListComponent implements OnInit {
 
     showTableToggle(): void {
         this.showTable =!this.showTable;
+    }
+
+    sortBy(key: keyof IProduct) {
+        if (this.sortKey === key) {
+          this.sortDirection = -this.sortDirection; // Reverse sort direction if same key is clicked
+        } else {
+          this.sortKey = key; // Change sort key
+          this.sortDirection = 1; // Default to ascending order when new key is selected
+        }
+    
+        this.sortedProducts = [...this.products].sort((a, b) => {
+          // Using localeCompare for string comparison to handle case sensitivity
+          return this.sortDirection * (a[key] as any).localeCompare(b[key] as any);
+        });
+
+        this.products = [...this.sortedProducts];
+    }
+    toggleTable() {
+        if (this.productUpdateComponent) {
+            this.productUpdateComponent.showTableToggle();
+        }
     }
 }

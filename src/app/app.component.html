@@ -1,12 +1,16 @@
-
-<div style="text-align:center">
+<header>
+  <div style="text-align:center" >
     <nav>
       <ul class='nav'>
-        <li><a><i class="fa-solid fa-house"></i></a></li>
-        <li><a>Product List</a></li>
+        <li><a [routerLink]="['/home']"><i class="fa-solid fa-house"></i></a></li>
+        <li><a [routerLink]="['/products']">Product List</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
       </ul>
     </nav>
-</div>
+  </div>
+</header>
 
 <!-- <div>
   <pm-product-list></pm-product-list>
@@ -14,3 +18,9 @@
 <div>
   <router-outlet></router-outlet>
 </div>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2024 POC Application. All rights reserved.</p>
+  </div>
+</footer>

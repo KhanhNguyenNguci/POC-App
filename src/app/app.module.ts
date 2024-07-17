@@ -11,20 +11,27 @@ import { DialogModule } from 'primeng/dialog';
 import { ProductDetailComponent } from './features/product-detail/product-detail.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { DateFormatPipe } from './shared/date-format.pipe';
+import { ProductUpdateComponent } from './features/product/product-update.component';
+import { WelcomeComponent } from './home/welcome.component';
 
 const routes: Routes = [
-  { path: 'product', component: ProductListComponent },
+  { path: 'products', component: ProductListComponent },
+  { path: 'product-update/:id', component: ProductUpdateComponent },
   { path: 'product/:id', component: ProductDetailComponent },
-  { path: '', redirectTo: 'product', pathMatch: 'full' },
+  { path: 'home', component: WelcomeComponent },
+  { path: '', redirectTo: 'products', pathMatch: 'full' },
   // { path: '**', component: PageNotFoundComponent }
-  { path: '**', redirectTo: 'product', pathMatch: 'full' },
+  { path: '**', redirectTo: 'products', pathMatch: 'full' },
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductListComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    DateFormatPipe,
+    ProductUpdateComponent
   ],
   imports: [
     BrowserModule,

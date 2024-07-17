@@ -28,3 +28,79 @@ nav ul li a {
 nav ul li a:hover {
   background-color: #0077b3; /* Darken the background on hover */
 }
+
+
+
+
+
+/* Reset some default browser styles */
+
+
+/* Basic styling for header */
+header {
+  color: #fff;
+  padding: 10px 0;
+  width: 100%;
+  position: fixed;  /* Fixed position */
+  top: 0;           /* At the top of the viewport */
+  z-index: 1000;    /* Ensure it's above other content */
+  background-color: #333; /* Background color of header */
+}
+
+header .container {
+  display: flex;
+  justify-content: center; /* Center align items */
+  align-items: center;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+header nav ul {
+  list-style-type: none;
+  display: flex;
+}
+
+header nav ul li {
+  margin-right: 20px;
+}
+
+header nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 10px 15px; /* Add padding to make clickable area larger */
+  display: block; /* Make <a> tags behave like blocks for full width */
+  transition: background-color 0.3s ease; /* Add transition for smooth hover effect */
+}
+
+header nav ul li a:hover {
+  background-color: #3399ff; /* Change background color on hover */
+}
+
+/* Padding for body to avoid content being covered by fixed header */
+body {
+  padding-top: 70px; /* Adjust this value according to the height of your header */
+}
+
+
+/* Basic styling for footer */
+footer {
+  background-color: #3399ff;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+footer .container {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+footer p {
+  font-size: 14px;
+}
+
